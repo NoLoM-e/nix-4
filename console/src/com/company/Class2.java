@@ -1,3 +1,7 @@
+package com.company;
+
+import org.apache.commons.lang3.*;
+
 public class Class2
 {
     public void test()
