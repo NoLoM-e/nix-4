@@ -18,6 +18,6 @@ public class App
         Complex z2 = new Complex(3.21, 1.11);
         Complex z3 = z1.add(z2);
 
-        System.out.println("(1.5 + 21i) + (3.21 + 1.11i) = " + z3.getReal() + " " + z3.getImaginary());
+        System.out.println("(1.5 + 21i) + (3.21 + 1.11i) = " + z3.getReal() + " + " + z3.getImaginary() + "i");
     }
 }
