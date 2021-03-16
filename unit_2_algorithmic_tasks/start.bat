@@ -1,0 +1,9 @@
+@echo off
+echo Creating build folders...
+mkdir build
+mkdir build\classes
+echo Compiling java project...
+javac -sourcepath src -d build\classes src\com\company\Main.java
+echo Running java project...
+java -cp build\classes\ com.company.Main
+pause
