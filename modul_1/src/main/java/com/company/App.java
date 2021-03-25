@@ -44,7 +44,31 @@ public class App
         x1 = -1;
         y1 = -6;
         System.out.println("horseMove() = " + horseMove(x, y, x1, y1));
+        int xA, xB, xC, yA, yB,yC;
+        xA = 1;
+        xB = 1;
+        xC = 3;
+        yA = 3;
+        yB = 1;
+        yC = 1;
+        System.out.println("triangleSquare(xA, yA, xB, yB, xC, yC) = " + triangleSquare(xA, yA, xB, yB, xC, yC));
+        xA = 5;
+        xB = 10;
+        xC = 22;
+        yA = 15;
+        yB = 3;
+        yC = 7;
+        System.out.println("triangleSquare(xA, yA, xB, yB, xC, yC) = " + triangleSquare(xA, yA, xB, yB, xC, yC));
+        xA = 22;
+        xB = 30;
+        xC = -4;
+        yA = 0;
+        yB = -25;
+        yC = -1;
+        System.out.println("triangleSquare(xA, yA, xB, yB, xC, yC) = " + triangleSquare(xA, yA, xB, yB, xC, yC));
+
     }
+    //1.1
     public static long unique(int[] arr)
     {
         long count = 0;
@@ -60,7 +84,7 @@ public class App
         }
         return count;
     }
-
+    //1.2
     public static boolean horseMove(int x, int y, int x1, int y1)
     {
         if(Math.abs(x1 - x) == 2 && Math.abs(y1 - y) == 1)
@@ -72,5 +96,17 @@ public class App
             return true;
         }
         return false;
+    }
+    //1.3
+    public static double triangleSquare(double xA, double yA, double xB, double yB,double xC, double yC)
+    {
+        double AB = Math.sqrt(Math.pow(xB - xA, 2) + Math.pow(yB - yA, 2));
+        double AC = Math.sqrt(Math.pow(xC - xA, 2) + Math.pow(yC - yA, 2));
+        double BC = Math.sqrt(Math.pow(xC - xB, 2) + Math.pow(yC - yB, 2));
+
+        double halfSum = (AB + AC + BC) / 2;
+        double square = Math.sqrt(halfSum * (halfSum - AB) * (halfSum - AC) * (halfSum - BC));
+
+        return square;
     }
 }
