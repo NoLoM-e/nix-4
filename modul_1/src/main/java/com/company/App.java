@@ -1,7 +1,12 @@
 package com.company;
 
 
-public class App 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+public class App
 {
     public static void main( String[] args ) {
 
@@ -67,6 +72,15 @@ public class App
         yC = -1;
         System.out.println("triangleSquare(xA, yA, xB, yB, xC, yC) = " + triangleSquare(xA, yA, xB, yB, xC, yC));
 
+        String str;
+        str = "";
+        System.out.println("isAllowed(str) = " + isAllowed(str));
+        str = "(ekjfhew[weiofwmio]7238)";
+        System.out.println("isAllowed(str) = " + isAllowed(str));
+        str = "{weirjmweoi3298[wriuxhiu3}wqri,]";
+        System.out.println("isAllowed(str) = " + isAllowed(str));
+        str = "3892nrx]samdi)wur}";
+        System.out.println("isAllowed(str) = " + isAllowed(str));
     }
     //1.1
     public static long unique(int[] arr)
@@ -108,5 +122,52 @@ public class App
         double square = Math.sqrt(halfSum * (halfSum - AB) * (halfSum - AC) * (halfSum - BC));
 
         return square;
+    }
+    //2.1
+    public static boolean isAllowed(String str) {
+        String[] s = str.split("");
+        List<String> l = new LinkedList<>(Arrays.asList(s));
+        for (int i = 0; i < l.size(); i++) {
+            if (l.get(i).equals("(")) {
+                for (int j = l.size() - 1; j > 0; j--) {
+                    if (l.get(j).equals("]") || l.get(j).equals("}")) {
+                        return false;
+                    }
+                    if (l.get(j).equals(")")) {
+                        l.remove(j);
+                        l.remove(i);
+                        break;
+                    }
+                }
+            }
+            if (l.get(i).equals("[")) {
+                for (int j = l.size() - 1; j > 0; j--) {
+                    if (l.get(j).equals(")") || l.get(j).equals("}")) {
+                        return false;
+                    }
+                    if (l.get(j).equals("]")) {
+                        l.remove(j);
+                        l.remove(i);
+                        break;
+                    }
+                }
+            }
+            if (l.get(i).equals("{")) {
+                for (int j = l.size() - 1; j > 0; j--) {
+                    if (l.get(j).equals("]") || l.get(j).equals(")")) {
+                        return false;
+                    }
+                    if (l.get(j).equals("}")) {
+                        l.remove(j);
+                        l.remove(i);
+                        break;
+                    }
+                }
+            }
+            if (l.get(i).equals("}") || l.get(i).equals(")") || l.get(i).equals("]")) {
+                return false;
+            }
+        }
+        return true;
     }
 }
