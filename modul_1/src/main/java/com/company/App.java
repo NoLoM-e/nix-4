@@ -81,16 +81,56 @@ public class App
         System.out.println("isAllowed(str) = " + isAllowed(str));
         str = "3892nrx]samdi)wur}";
         System.out.println("isAllowed(str) = " + isAllowed(str));
+
+
+        byte[][] arrLive;
+        arrLive = new byte[][]
+                {
+                        {0, 1, 0, 1, 1, 0},
+                        {0, 0, 0, 0, 0, 1},
+                        {0, 0, 1, 1, 1, 1},
+                        {0, 0, 0, 0, 0, 0},
+                };
+        arrLive = gameOfLifeStep(arrLive);
+        for (byte[] bArr : arrLive) {
+            for (byte b: bArr) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        arrLive = gameOfLifeStep(arrLive);
+        for (byte[] bArr : arrLive) {
+            for (byte b: bArr) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        arrLive = gameOfLifeStep(arrLive);
+        for (byte[] bArr : arrLive) {
+            for (byte b: bArr) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        arrLive = gameOfLifeStep(arrLive);
+        for (byte[] bArr : arrLive) {
+            for (byte b: bArr) {
+                System.out.print(b + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
     //1.1
-    public static long unique(int[] arr)
-    {
+    public static long unique(int[] arr) {
         long count = 0;
         pointer:
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {
-                if(arr[j] == arr[i])
-                {
+                if(arr[j] == arr[i]) {
                     continue pointer;
                 }
             }
@@ -99,21 +139,17 @@ public class App
         return count;
     }
     //1.2
-    public static boolean horseMove(int x, int y, int x1, int y1)
-    {
-        if(Math.abs(x1 - x) == 2 && Math.abs(y1 - y) == 1)
-        {
+    public static boolean horseMove(int x, int y, int x1, int y1) {
+        if(Math.abs(x1 - x) == 2 && Math.abs(y1 - y) == 1) {
             return true;
         }
-        if(Math.abs(y1 - y) == 2 && Math.abs(x1 - x) == 1)
-        {
+        if(Math.abs(y1 - y) == 2 && Math.abs(x1 - x) == 1) {
             return true;
         }
         return false;
     }
     //1.3
-    public static double triangleSquare(double xA, double yA, double xB, double yB,double xC, double yC)
-    {
+    public static double triangleSquare(double xA, double yA, double xB, double yB,double xC, double yC) {
         double AB = Math.sqrt(Math.pow(xB - xA, 2) + Math.pow(yB - yA, 2));
         double AC = Math.sqrt(Math.pow(xC - xA, 2) + Math.pow(yC - yA, 2));
         double BC = Math.sqrt(Math.pow(xC - xB, 2) + Math.pow(yC - yB, 2));
@@ -169,5 +205,49 @@ public class App
             }
         }
         return true;
+    }
+    public static byte[][] gameOfLifeStep(byte[][] arr) {
+        byte[][] arr1 = new byte[arr.length][arr[0].length];
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                byte[] neigbors =
+                        {
+                                arr[(i - 1 + arr.length) % arr.length][(j - 1 + arr[0].length) % arr[0].length],
+                                arr[(i - 1 + arr.length) % arr.length][(j + arr[0].length) % arr[0].length],
+                                arr[(i - 1 + arr.length) % arr.length][(j + 1 + arr[0].length) % arr[0].length],
+                                arr[(i + arr.length) % arr.length][(j - 1 + arr[0].length) % arr[0].length],
+                                arr[(i + arr.length) % arr.length][(j + 1 + arr[0].length) % arr[0].length],
+                                arr[(i + 1 + arr.length) % arr.length][(j - 1 + arr[0].length) % arr[0].length],
+                                arr[(i + 1 + arr.length) % arr.length][(j + arr[0].length) % arr[0].length],
+                                arr[(i + 1 + arr.length) % arr.length][(j + 1 + arr[0].length) % arr[0].length]
+                        };
+                byte aliveNeighbors = 0;
+                for (byte b: neigbors) {
+                    if(b == 1) {
+                        aliveNeighbors++;
+                    }
+                }
+                if(arr[i][j] == 0) {
+                    if(aliveNeighbors == 3) {
+                        arr1[i][j] = 1;
+                    }
+                    else {
+                        arr1[i][j] = 0;
+                    }
+                }
+                else {
+                    if(aliveNeighbors < 2 || aliveNeighbors > 3) {
+                        arr1[i][j] = 0;
+                    }
+                    else {
+                        arr1[i][j] = 1;
+                    }
+                }
+            }
+
+        }
+
+        return arr1;
     }
 }
