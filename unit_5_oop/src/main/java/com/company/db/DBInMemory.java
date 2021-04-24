@@ -6,7 +6,6 @@ import com.company.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,7 +22,7 @@ public class DBInMemory {
         books = new ArrayList<>();
     }
 
-    public DBInMemory getInstance(){
+    public static DBInMemory getInstance(){
 
         if(db == null){
             db = new DBInMemory();
@@ -37,6 +36,18 @@ public class DBInMemory {
             return generateId(UUID.randomUUID().toString(), list);
         }
         return id;
+    }
+
+    public <T extends BaseEntity> boolean existById(String id, Class<T> c){
+        if(c.isAssignableFrom(Author.class)){
+            return this.authors.stream().anyMatch(author -> author.getId().equals(id));
+        }
+        if(c.isAssignableFrom(Book.class)){
+            return this.books.stream().anyMatch(book -> book.getId().equals(id));
+        }
+        else {
+            throw new RuntimeException("class does not exist");
+        }
     }
 
 
