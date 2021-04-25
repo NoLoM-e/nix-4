@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 public class Controller {
 
-    private static final LibService authorService = new AuthorService();
-    private static final LibService bookService = new BookService();
+    private static final LibService<Author> authorService = new AuthorService();
+    private static final LibService<Book> bookService = new BookService();
 
     private static final Scanner in = new Scanner(System.in);
 
