@@ -1,0 +1,28 @@
+2021-04-25 23:44:30 INFO  AuthorService:20 - create author start
+2021-04-25 23:44:30 INFO  AuthorService:26 - create author finish
+2021-04-25 23:45:56 INFO  AuthorService:20 - create author start
+2021-04-25 23:45:56 INFO  AuthorService:26 - create author finish
+2021-04-25 23:46:01 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:46:01 INFO  AuthorService:73 - finding all authors finish
+2021-04-25 23:46:42 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:46:42 INFO  AuthorService:73 - finding all authors finish
+2021-04-25 23:46:48 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:46:48 INFO  AuthorService:73 - finding all authors finish
+2021-04-25 23:46:48 INFO  BookService:20 - create book start
+2021-04-25 23:46:48 INFO  BookService:26 - create book finish
+2021-04-25 23:46:51 INFO  BookService:65 - find all books start
+2021-04-25 23:46:51 INFO  BookService:73 - find all books finish
+2021-04-25 23:46:51 INFO  AuthorService:51 - finding by id author start
+2021-04-25 23:46:51 INFO  AuthorService:59 - finding by id author finish
+2021-04-25 23:46:51 INFO  AuthorService:51 - finding by id author start
+2021-04-25 23:46:51 INFO  AuthorService:59 - finding by id author finish
+2021-04-25 23:47:04 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:47:04 INFO  AuthorService:73 - finding all authors finish
+2021-04-25 23:47:04 INFO  BookService:20 - create book start
+2021-04-25 23:47:04 INFO  BookService:26 - create book finish
+2021-04-25 23:47:19 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:47:19 INFO  AuthorService:73 - finding all authors finish
+2021-04-25 23:47:19 INFO  BookService:20 - create book start
+2021-04-25 23:47:19 INFO  BookService:26 - create book finish
+2021-04-25 23:47:26 INFO  AuthorService:65 - finding all authors start
+2021-04-25 23:47:26 INFO  AuthorService:73 - finding all authors finish
