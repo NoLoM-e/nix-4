@@ -49,7 +49,7 @@ public class MathSet<T extends Number> {
     }
 
 
-    void add(T t){
+    public void add(T t){
         if(t == null){
             throw new RuntimeException("null element");
         }
@@ -61,25 +61,25 @@ public class MathSet<T extends Number> {
         }
     }
 
-    void add(T ... n){
+    public void add(T ... n){
         for (T number : n){
             this.add(number);
         }
     }
 
-    void join(MathSet ms){
+    public void join(MathSet ms){
         for (int i = 0; i < ms.size; i++) {
             this.add((T) ms.get(i));
         }
     }
 
-    void join(MathSet ... ms){
+    public void join(MathSet ... ms){
         for (MathSet set : ms){
             this.join(set);
         }
     }
 
-    void sortDesc(){
+    public void sortDesc(){
         for (int i = 0; i < this.size; i++) {
             for (int j = i; j < this.size; j++) {
                 if (compare((Number) this.elements[j], (Number) this.elements[i]) > 0){
@@ -91,7 +91,7 @@ public class MathSet<T extends Number> {
         }
     }
 
-    void sortDesc(int firstIndex, int lastIndex){
+    public void sortDesc(int firstIndex, int lastIndex){
         if(lastIndex >= this.size || firstIndex >= lastIndex || firstIndex < 0){
             throw new RuntimeException("incorrect index");
         }
@@ -107,12 +107,12 @@ public class MathSet<T extends Number> {
         }
     }
 
-    void sortDesc(T value){
+    public void sortDesc(T value){
         this.add(value);
         this.sortDesc();
     }
 
-    void sortAsc(){
+    public void sortAsc(){
         for (int i = 0; i < this.size; i++) {
             for (int j = i; j < this.size; j++) {
                 if (compare((Number) this.elements[j], (Number) this.elements[i]) < 0){
@@ -124,7 +124,7 @@ public class MathSet<T extends Number> {
         }
     }
 
-    void sortAsc(int firstIndex, int lastIndex){
+    public void sortAsc(int firstIndex, int lastIndex){
         if(lastIndex >= this.size || firstIndex >= lastIndex || firstIndex < 0){
             throw new RuntimeException("incorrect index");
         }
@@ -140,39 +140,39 @@ public class MathSet<T extends Number> {
         }
     }
 
-    void sortAsc(T value){
+    public void sortAsc(T value){
         this.add(value);
         this.sortAsc();
     }
 
-    T get(int index){
+    public T get(int index){
         if(index >= size){
             throw new RuntimeException("incorrect index");
         }
         return (T) this.elements[index];
     }
 
-    Number getMax(){
+    public Number getMax(){
         Number max = (Number) this.elements[0];
         for (int i = 1; i < this.size; i++){
-            if(compare(max, (Number) this.elements[i]) > 0){
+            if(compare(max, (Number) this.elements[i]) < 0){
                 max = (Number) this.elements[i];
             }
         }
         return max;
     }
 
-    Number getMin(){
+    public Number getMin(){
         Number min = (Number) this.elements[0];
         for (int i = 1; i < this.size; i++){
-            if(compare(min, (Number) this.elements[i]) < 0){
+            if(compare(min, (Number) this.elements[i]) > 0){
                 min = (Number) this.elements[i];
             }
         }
         return min;
     }
 
-    Number getAverage(){
+    public Number getAverage(){
         BigDecimal sum = new BigDecimal("0");
         for (int i = 0; i < this.size; i++) {
             sum = sum.add(new BigDecimal(this.elements[i].toString()));
@@ -180,27 +180,30 @@ public class MathSet<T extends Number> {
         return sum.divide(new BigDecimal(this.size));
     }
 
-    Number getMedian(){
-        Number[] arr = (Number[]) this.elements.clone();
+    public Number getMedian(){
+        Object[] arr =  this.elements.clone();
 
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length; j++) {
-                if (compare(arr[j], arr[i]) > 0){
-                    Number temp = arr[j];
+        for (int i = 0; i < this.size; i++) {
+            for (int j = i; j < this.size; j++) {
+                if (compare((Number) arr[j],(Number) arr[i]) > 0){
+                    Object temp = arr[j];
                     arr[j] = arr[i];
                     arr[i] = temp;
                 }
             }
         }
 
-        return arr[Math.round(this.size / 2)];
+        if(this.size % 2 == 0){
+            return new BigDecimal(arr[this.size / 2 - 1].toString()).add(new BigDecimal(arr[this.size / 2].toString())).divide(new BigDecimal(2));
+        }
+        return (Number) arr[Math.round(this.size / 2) - 1];
     }
 
-    Number[] toArray(){
+    public Number[] toArray(){
         return (Number[]) this.elements;
     }
 
-    Number[] toArray(int firstIndex, int lastIndex){
+    public Number[] toArray(int firstIndex, int lastIndex){
         if(firstIndex < 0 || lastIndex >= this.size || firstIndex >= lastIndex){
             throw new RuntimeException("Incorrect index");
         }
@@ -209,7 +212,7 @@ public class MathSet<T extends Number> {
         return arr;
     }
 
-    MathSet squash(int firstIndex, int lastIndex){
+    public MathSet squash(int firstIndex, int lastIndex){
         if(lastIndex >= size || firstIndex < 0 || firstIndex >= lastIndex){
             throw new RuntimeException("Incorrect index");
         }
@@ -225,12 +228,12 @@ public class MathSet<T extends Number> {
         return new MathSet(arr);
     }
 
-    void clear(){
+    public void clear(){
         this.elements = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
 
-    void clear(Number[] numbers){
+    public void clear(Number[] numbers){
         for (int i = 0; i < numbers.length; i++) {
             int index = indexOf((T) numbers[i]);
             if(index != -1){
@@ -274,5 +277,20 @@ public class MathSet<T extends Number> {
         System.arraycopy(arr, 0, newArr, 0, arr.length);
         System.arraycopy(arr1, 0, newArr, arr.length, arr1.length);
         return newArr;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("");
+        stringBuilder.append("size = ");
+        stringBuilder.append(this.size);
+        stringBuilder.append("\n");
+        for (int i = 0; i < this.size; i++) {
+            stringBuilder.append(i);
+            stringBuilder.append(" : ");
+            stringBuilder.append(this.elements[i]);
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
