@@ -1,10 +1,10 @@
 package com.company.controller;
 
 import com.company.tasks.Task1;
+import com.company.tasks.Task2;
+import com.company.tasks.Task3;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Controller {
 
     private static final Scanner in = new Scanner(System.in);
-    private static FileReader fileReader;
 
     public void run() {
 
@@ -29,7 +28,7 @@ public class Controller {
                     continue pointer;
                 case "2":
                     try {
-                        task2();
+                        //task2();
                     } catch (Exception e){
                         System.out.println(e.getMessage());
                     }
@@ -38,7 +37,7 @@ public class Controller {
                     try {
                         task3();
                     } catch (Exception e){
-                        System.out.println(e.getMessage());
+                        e.printStackTrace();
                     }
                     continue pointer;
                 case "0":
@@ -51,6 +50,8 @@ public class Controller {
 
     private void task1() throws IOException {
         List<String> dates = new ArrayList<>();
+        FileReader fileReader;
+
         pointer:
         while (true) {
             System.out.println("1 - read dates from file");
@@ -87,6 +88,37 @@ public class Controller {
             }
         }
     }
-    private void task2() throws FileNotFoundException {}
-    private void task3() throws FileNotFoundException {}
+    private void task3() throws IOException {
+        FileReader fileReader = new FileReader("input.txt");
+        Scanner s = new Scanner(fileReader);
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter("output.txt"));
+
+        int size = Integer.parseInt(s.nextLine());
+        List<String> cities = new ArrayList<>();
+
+        int[][] arr = new int[size][size];
+
+        for (int i = 0; i < size; i++){
+            cities.add(s.nextLine());
+            int temp = Integer.parseInt(s.nextLine());
+            for (int j = 0; j < temp; j++){
+                arr[i][Integer.parseInt(s.next()) - 1] = Integer.parseInt(s.nextLine().replace(" ", ""));
+            }
+        }
+
+        int temp = Integer.parseInt(s.nextLine());
+        for (int i = 0; i < temp; i++){
+            fileWriter.write(String.valueOf(Task3.task3(arr, cities.indexOf(s.next()), cities.indexOf(s.nextLine().replace(" ", "")))));
+            fileWriter.write("\n");
+        }
+        fileReader.close();
+        FileReader fileReader1 = new FileReader("output.txt");
+        Scanner s1 = new Scanner(fileReader1);
+        while (s1.hasNextLine()){
+            System.out.println(s1.nextLine());
+        }
+        fileReader.close();
+        fileWriter.close();
+    }
 }
