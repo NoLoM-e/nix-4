@@ -28,7 +28,7 @@ public class Controller {
                     continue pointer;
                 case "2":
                     try {
-                        //task2();
+                        task2();
                     } catch (Exception e){
                         System.out.println(e.getMessage());
                     }
@@ -88,6 +88,43 @@ public class Controller {
             }
         }
     }
+    private void task2() throws IOException {
+        ArrayList<String> names = new ArrayList<>();
+        FileReader fileReader;
+
+        pointer:
+        while (true) {
+            System.out.println("1 - read names from file");
+            System.out.println("2 - enter names manually");
+            System.out.println("0 - to return");
+            switch (in.nextLine()) {
+                case "1":
+                    fileReader = new FileReader("input2.txt");
+                    Scanner s = new Scanner(fileReader);
+                    while (s.hasNextLine()){
+                        names.add(s.nextLine());
+                    }
+                    System.out.println(Task2.task2(names));
+                    fileReader.close();
+                    continue pointer;
+                case "2":
+                    while (true){
+                        System.out.println("Enter name or stop to finish");
+                        String string = in.nextLine();
+                        if(string.equals("stop")){
+                            break;
+                        }
+                        names.add(string);
+                    }
+                    System.out.println(Task2.task2(names));
+                    continue pointer;
+                case "0":
+                    break pointer;
+                default:
+                    System.out.println("Wrong option");
+            }
+        }
+    }
     private void task3() throws IOException {
         FileReader fileReader = new FileReader("input.txt");
         Scanner s = new Scanner(fileReader);
@@ -113,12 +150,13 @@ public class Controller {
             fileWriter.write("\n");
         }
         fileReader.close();
+        fileWriter.close();
         FileReader fileReader1 = new FileReader("output.txt");
         Scanner s1 = new Scanner(fileReader1);
+        System.out.println("output.txt:");
         while (s1.hasNextLine()){
             System.out.println(s1.nextLine());
         }
-        fileReader.close();
-        fileWriter.close();
+        fileReader1.close();
     }
 }
