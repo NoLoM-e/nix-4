@@ -1,7 +1,7 @@
 package com.company.tasks;
 
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 /*
@@ -11,11 +11,26 @@ import java.util.ArrayList;
  */
 public class Task2 {
     public static String task2(ArrayList<String> names){
-        for(int i = 0; i < names.size(); i++){
-            if(names.lastIndexOf(names.get(i)) == i){
-                return names.get(i);
+
+        Map<String, Integer> map = new LinkedHashMap<>();
+
+        for (String name : names){
+
+            if(map.containsKey(name)){
+                map.replace(name, map.get(name) + 1);
+            }
+            else {
+                map.put(name, 1);
             }
         }
+
+        for (String name : names){
+
+            if(map.get(name) == 1){
+                return name;
+            }
+        }
+
         return "";
     }
 }
