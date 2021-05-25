@@ -1,55 +1,62 @@
-create table locations
+create table if not exists locations
 (
-    id serial
-        constraint locations_pk
-            primary key,
+    id serial not null
+    constraint locations_pk
+    primary key,
     name text not null
 );
 
-create unique index locations_name_uindex
-    on locations (name);
+alter table locations owner to postgres;
 
-create table routes
+create unique index if not exists locations_name_uindex
+	on locations (name);
+
+create table if not exists routes
 (
-    id serial
-        constraint routes_pk
-            primary key,
-    from_id int
-        constraint from_id
-            references locations,
-    to_id int
-        constraint to_id
-            references locations,
-    cost int
+    id serial not null
+    constraint routes_pk
+    primary key,
+    from_id integer
+    constraint from_id
+    references locations,
+    to_id integer
+    constraint to_id
+    references locations,
+    cost integer
+    constraint routes_cost_check
+    check (cost <= 200000)
+    );
 
-        check ( cost <= 200000 )
+alter table routes owner to postgres;
+
+create table if not exists problems
+(
+    id serial not null
+    constraint problems_pk
+    primary key,
+    from_id integer
+    constraint from_id
+    references locations,
+    to_id integer
+    constraint to_id
+    references locations
 );
 
-create table problems
+alter table problems owner to postgres;
+
+create table if not exists solutions
 (
-    id serial
-        constraint problems_pk
-            primary key,
-    from_id int
-        constraint from_id
-            references locations,
-    to_id int
-        constraint to_id
-            references locations
-);
+    id integer not null
+    constraint solutions_pk
+    primary key
+    constraint id
+    references problems,
+    cost integer
+    constraint solutions_cost_check
+    check (cost <= 200000)
+    );
 
-create table solutions
-(
-    id int
-        constraint solutions_pk
-            primary key
-        constraint id
-            references problems,
-    cost int
-
-        check ( cost <= 200000 )
-);
-
+alter table solutions owner to postgres;
 
 insert into locations (name) values ('gdansk');
 insert into locations (name) values ('bydgoszcz');
