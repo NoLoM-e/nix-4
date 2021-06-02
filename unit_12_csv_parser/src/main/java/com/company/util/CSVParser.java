@@ -19,7 +19,7 @@ public class CSVParser {
 
         } catch (IOException | CsvException e) {
             e.printStackTrace();
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 }
