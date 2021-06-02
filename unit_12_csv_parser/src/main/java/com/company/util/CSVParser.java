@@ -12,14 +12,14 @@ import java.io.IOException;
 
 public class CSVParser {
 
-    public Data parse(String url){
+    public Data parse(String url) throws IOException, CsvException {
         try(CSVReader csvReader = new CSVReader(new FileReader(url))){
 
             return new Data(csvReader.readNext(), csvReader.readAll());
 
         } catch (IOException | CsvException e) {
             e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 }

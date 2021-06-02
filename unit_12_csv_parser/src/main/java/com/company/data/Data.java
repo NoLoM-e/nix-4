@@ -1,16 +1,22 @@
 package com.company.data;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Data {
 
-    private String[] names;
+    private Map<String, Integer> names;
     private List<String[]> data;
 
     public Data(String[] names, List<String[]> data){
-        this.names = names;
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < names.length; i++) {
+            map.put(names[i], i);
+        }
+        this.names = map;
         this.data = data;
     }
 
@@ -23,21 +29,15 @@ public class Data {
     }
 
     public String get(int row, String column){
-        int c = -1;
-        for (int i = 0; i < names.length; i++){
-            if(names[i].equals(column)){
-                c = i;
-                break;
-            }
-        }
-        if(c != -1)
+        Integer c = names.get(column);
+        if(c != null)
             return get(row, c);
         else
             throw new RuntimeException("column not found");
     }
 
     public String[] getNames(){
-        return names;
+        return names.keySet().toArray(new String[0]);
     }
 
     public int rowCount(){
