@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class CSVMapper {
 
-    public <T> List<T> map(Data data, Class<T> c){
+    public <T> List<T> map(Data data, Class<T> c) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         List<T> result = new ArrayList<>();
 
@@ -53,8 +53,8 @@ public class CSVMapper {
             }
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
+            throw  e;
         }
-
         return result;
     }
 }
