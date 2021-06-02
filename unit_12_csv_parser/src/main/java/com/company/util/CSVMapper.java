@@ -53,7 +53,7 @@ public class CSVMapper {
             }
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-            throw  e;
+            throw new RuntimeException(e);
         }
         return result;
     }
