@@ -16,7 +16,6 @@ public class Main {
         CSVParser csvParser = new CSVParser();
         CSVMapper csvMapper = new CSVMapper();
 
-        //String url = "data.csv";
         Path url = null;
         try {
              url = new Main().getPath();
