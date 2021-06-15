@@ -9,9 +9,12 @@ import com.company.entity.User;
 
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.LoggerFactory;
 
+import java.util.logging.Level;
 
 
 public class Main {
@@ -31,6 +34,8 @@ public class Main {
             configuration.setProperty("hibernate.hbm2ddl.auto", "update");
             configuration.setProperty("hibernate.show_sql", "false");
             configuration.setProperty("hibernate.format_sql", "false");
+            configuration.setProperty("hibernate.generate_statistics", "false");
+            configuration.setProperty("hibernate.use_sql_comments", "false");
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Account.class);
             configuration.addAnnotatedClass(Category.class);
