@@ -14,9 +14,11 @@ public class InputThread implements Runnable{
 
     private FileWriter fileWriter;
 
+    private final File file;
+
 
     public InputThread(File file) throws IOException {
-        fileWriter = new FileWriter(file);
+        this.file = file;
     }
 
     @Override
@@ -32,17 +34,21 @@ public class InputThread implements Runnable{
                 }
 
                 if(!current.equals(previous)){
-                    fileWriter.write(current);
-                    fileWriter.flush();
+                    try {
+                        fileWriter = new FileWriter(this.file);
+                        fileWriter.write(current);
+                        fileWriter.flush();
+                    } catch (IOException e){
+                        logger.error("Unable to write to file", e);
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 previous = current;
                 wait(1000);
             }
-
-            fileWriter.close();
-        } catch (IOException | InterruptedException e) {
-            logger.error(e.getMessage());
+        } catch (InterruptedException e) {
+            logger.error("Was interrupted", e);
             throw new RuntimeException(e);
         }
     }

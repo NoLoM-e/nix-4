@@ -10,13 +10,13 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner in = new Scanner(System.in);
-    public static volatile StringBuilder input = new StringBuilder();
+    public static StringBuffer input = new StringBuffer();
 
     public static void main(String[] args) {
 
         Thread thread;
         try {
-            thread = new Thread(new InputThread(new File("output.txt")));
+            thread = new Thread(new InputThread(new File("target/output.txt")));
             thread.start();
         } catch (IOException e) {
             e.printStackTrace();
